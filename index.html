@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+	     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/footers/footer-3/assets/css/footer-3.css">
+
+	<link rel="icon" href="logo.png" type="image/x-icon">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="اكتشف الوصفات اللذيذة والمغذية مع HealthyEats. احصل على أفكار جديدة لوجبات صحية ومغذية في المنزل بسهولة.">
+    <meta name="keywords" content="وصفات طعام، طعام صحي، وجبات غذائية مغذية، تحضير الوجبات، طبخ منزلي، وصفات مبتدئين، أطباق خفيفة، نظام غذائي متوازن، طهي سريع، supercook، مولد الوصفات، ماذا يمكنني عمله مع، ماذا يمكنني عمله مع هذه المكونات، وصفات حسب المكونات، العثور على الوصفات، بناء الوصفات، وصفات من allrecipes.com حسب المكونات، قائمة المكونات احصل على الوصفة، مولد الوصفات من المكونات، إدخال المكونات احصل على الوصفات، وصفات حسب المكونات المتوفرة">
+    <title>HealthyEats Ai: اكتشف الوصفات اللذيذة والمغذية</title>
+
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        .container {
+            padding: 20px;
+        }
+        
+        .button {
+            background-color: #f0f0f0;
+            border: none;
+            color: #333;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .button.active {
+            background-color: #f0f0f0;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+            font-size: 16px;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        input[type="range"] {
+            margin-top: 10px;
+            width: 200px;
+            background-color: #ffffff;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #time-label {
+            margin-top: 10px;
+            display: block;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .recipe-container {
+            text-align: right;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        .recipe-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .recipe-details {
+            margin-top: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        #profile-pic-upload {
+            display: none;
+        }
+
+        #profile-pic-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+            border: 2px solid #f0f0f0;
+            margin-bottom: 10px;
+        }
+
+        #profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        #username {
+            font-size: 20px;
+            color: #333;
+        }
+        
+              #menu {
+	background: #f0f0f0;
+	background: linear-gradient(to bottom,  0 2px 4px rgba(0, 0, 0, 0.1); /* ضل للزر */,  #404040);
+	color: black;
+	height: 45px;
+	padding-left: 18px;
+	border-radius: 10px;
+}
+#menu ul, #menu li {
+	margin: 0 auto;
+	padding: 0;
+	list-style: none
+}
+#menu ul {
+	width: 100%;
+}
+#menu li {
+	float: left;
+	display: inline;
+	position: relative;
+}
+#menu a {
+	display: block;
+	line-height: 45px;
+	padding: 0 14px;
+	text-decoration: none;
+	color: #FFFFFF;
+	font-size: 16px;
+}
+#menu a.dropdown-arrow:after {
+	content: "\25BE";
+	margin-left: 5px;
+}
+#menu li a:hover {
+	color: #0099CC;
+	background: #F2F2F2;
+}
+#menu input {
+	display: none;
+	margin: 0;
+	padding: 0;
+	height: 45px;
+	width: 100%;
+	opacity: 0;
+	cursor: pointer
+}
+#menu label {
+	display: none;
+	line-height: 45px;
+	text-align: center;
+	position: absolute;
+	left: 35px
+}
+#menu label:before {
+	font-size: 1.6em;
+	content: "\2261"; 
+	margin-left: 20px;
+}
+#menu ul.sub-menus{
+	height: auto;
+	overflow: hidden;
+	width: 170px;
+	background: #444444;
+	position: absolute;
+	z-index: 99;
+	display: none;
+}
+#menu ul.sub-menus li {
+	display: block;
+	width: 100%;
+}
+#menu ul.sub-menus a {
+	color: #9B9B9E;
+	font-size: 16px;
+}
+#menu li:hover ul.sub-menus {
+	display: block
+}
+#menu ul.sub-menus a:hover{
+	background: #F2F2F2;
+	color: #444444;
+}
+@media screen and (max-width: 800px){
+	#menu {position:relative}
+	#menu ul {background:#111;position:absolute;top:100%;right:0;left:0;z-index:3;height:auto;display:none}
+	#menu ul.sub-menus {width:100%;position:static;}
+	#menu ul.sub-menus a {padding-left:30px;}
+	#menu li {display:block;float:none;width:auto;}
+	#menu input, #menu label {position:absolute;top:0;left:0;display:block}
+	#menu input {z-index:4}
+	#menu input:checked + label {color:white}
+	#menu input:checked + label:before {content:"\00d7"}
+	#menu input:checked ~ ul {display:block}
+}
+    
+    </style>
+</head>
+<body>
+	<nav id='menu'>
+  <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
+  <ul>
+    <li><a href='index.html'>Home</a></li>
+  
+  
+    </li>
+    <li><a href='aboute.html'>About</a></li>
+    <li><a class='dropdown-arrow' href='terms.html'>Terms</a>
+  
+    </li>
+    <li><a href='privacy.html'>Privacy policy</a></li>
+  </ul>
+</nav>
+    <div class="container">
+        <div id="profile-pic-container">
+            <input type="file" accept="image/*" id="profile-pic-upload">
+            <label for="profile-pic-upload">
+                <img src="logo.png" alt="Profile Picture" id="profile-pic">
+            </label>
+        </div>
+        <span id="username">   HealthyEats Ai: اكتشف الوصفات اللذيذة والمغذية    </span>
+    
+        <div style="margin-top: 20px;">
+            <div style="display: inline-block;">
+                <input type="text" id="ingredients-input" placeholder="أدخل المكونات هنا...">
+                <label for="time-range" id="time-label">كم لديك من الوقت؟</label>
+                <input type="range" min="5" max="180" value="5" id="time-range">
+                
+                <button class="button" id="recipe-button" style="margin-top:20px;">اعطني الوصفة</button>
+            </div>
+        </div>
+
+        <div id="recipe-list"></div>
+    </div>
+    <script>
+        function copyReferralLink() {
+            const referralLink = "https://work-sniper.com";
+            navigator.clipboard.writeText(referralLink).then(function() {
+                alert("تم النسخ");
+            }, function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        document.getElementById("time-range").addEventListener("input", function() {
+            var time = this.value;
+            document.getElementById("time-label").textContent = time + " دقائق (كم لديك من الوقت؟)";
+        });
+        
+    </script>
+
+    <script>
+        function translateText(textToTranslate) {
+            var url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(textToTranslate) + '&langpair=ar|en';
+
+            return fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    return data.responseData.translatedText;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    return null;
+                });
+        }
+
+        function translateRecipeToArabic(recipe) {
+            var url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(recipe) + '&langpair=en|ar';
+
+            return fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    return data.responseData.translatedText;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    return null;
+                });
+        }
+
+        document.getElementById("recipe-button").addEventListener("click", function() {
+            const time = document.getElementById("time-range").value;
+            const ingredientsInput = document.getElementById("ingredients-input");
+            const ingredients = ingredientsInput.value;
+
+            // Translate ingredients to English
+            translateText(ingredients)
+                .then(translatedIngredients => {
+                    if (translatedIngredients) {
+                        const defaultPreparationTime = time; // Set default preparation time
+                        const appId = "9fa74179";
+                        const appKey = "d1d5b7e7a12b05cbda6767a1fb30a3b9";
+                        const url = `https://api.edamam.com/search?q=${translatedIngredients}&app_id=${appId}&app_key=${appKey}&time=${time}`;
+
+                        fetch(url)
+                            .then(response => response.json())
+                            .then(data => {
+                                const recipeList = document.getElementById("recipe-list");
+                                recipeList.innerHTML = "";
+
+                                data.hits.forEach(hit => {
+                                    const recipe = hit.recipe;
+
+                                    // Translate recipe to Arabic
+                                    translateRecipeToArabic(recipe.label)
+                                        .then(translatedRecipe => {
+                                            // Translate ingredients to Arabic
+                                            translateRecipeToArabic(recipe.ingredientLines.join('\n'))
+                                                .then(translatedIngredients => {
+                                                    const recipeItem = document.createElement("div");
+                                                    recipeItem.classList.add("recipe-container");
+                                                    recipeItem.innerHTML = `
+                                                        <h2>${translatedRecipe}</h2>
+                                                        <img class="recipe-image" src="${recipe.image}" alt="${translatedRecipe}">
+                                                        <div>
+                                                            <p><strong>وقت التحضير:</strong> ${defaultPreparationTime} دقيقة</p>
+                                                            <p><strong>المكونات:</strong></p>
+                                                            <ul>
+                                                                ${translatedIngredients.split('\n').map(ingredient => `<li>${ingredient}</li>`).join('')}
+                                                            </ul>
+                                                            <p><strong>طريقة التحضير:</strong></p>
+                                                            ${recipe.instructions ? `<ol>${recipe.instructions.map(instruction => `<li>${instruction}</li>`).join('')}</ol>` : `<p><a href="${recipe.url}" target="_blank">انقر هنا لرؤية طريقة التحضير</a></p>`}
+                                                        </div>
+                                                    `;
+                                                    recipeList.appendChild(recipeItem);
+                                                });
+                                        });
+                                });
+                            });
+                    } else {
+                        console.error('Failed to translate ingredients');
+                    }
+                });
+        });
+    </script>  
+  
+
+<!-- Footer 3 - Bootstrap Brain Component -->
+
+<footer class="footer" style="margin-top: 60px;">
+
+  <!-- Widgets - Bootstrap Brain Component -->
+  <section class="py-4 py-md-5 py-xl-8 bg-light border-top">
+    <div class="container overflow-hidden">
+      <div class="row gy-4 gy-lg-0">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="widget">
+            <h4 class="widget-title mb-4">تواصل معنا</h4>
+            <address class="mb-4">8014 Edith Blvd NE، Albuquerque، New York، الولايات المتحدة</address>
+            <p class="mb-1">
+              <a class="link-secondary text-decoration-none" href="tel:+15057922430">(505) 792-2430</a>
+            </p>
+            <p class="mb-0">
+              <a class="link-secondary text-decoration-none" href="mailto:demo@yourdomain.com">karen_s49@aol.com</a>
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+          <div class="widget">
+            <h4 class="widget-title mb-4">الخدمات</h4>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="#!" class="link-secondary text-decoration-none">حلول الذكاء الاصطناعي</a>
+              </li>
+              <li class="mb-2">
+                <a href="#!" class="link-secondary text-decoration-none">التسويق الرقمي</a>
+              </li>
+              <li class="mb-2">
+                <a href="#!" class="link-secondary text-decoration-none">تطوير التطبيقات</a>
+              </li>
+              <li class="mb-2">
+                <a href="#!" class="link-secondary text-decoration-none">استشارات تحسين محركات البحث</a>
+              </li>
+              <li class="mb-0">
+                <a href="#!" class="link-secondary text-decoration-none">تصميم المواقع</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+          <div class="widget">
+            <h4 class="widget-title mb-4">الشركة</h4>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="#!" class="link-secondary text-decoration-none">عن الشركة</a>
+              </li>
+              <li class="mb-2">
+                <a href="#!" class="link-secondary text-decoration-none">اتصل بنا</a>
+              </li>
+              <li class="mb-2">
+                <a href="#!" class="link-secondary text-decoration-none">الإعلان</a>
+              </li>
+              <li class="mb-2">
+                <a href="#!" class="link-secondary text-decoration-none">شروط الخدمة</a>
+              </li>
+              <li class="mb-0">
+                <a href="#!" class="link-secondary text-decoration-none">سياسة الخصوصية</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="widget">
+            <h4 class="widget-title mb-4">HealthyEats AI الخاص بنا</h4>
+            <p class="mb-4">اشترك في HealthyEats AI للحصول على أخبارنا وخصوماتنا.</p>
+            <form action="#!">
+              <div class="row gy-4">
+                <div class="col-12">
+                  <div class="input-group">
+                    <span class="input-group-text" id="email-newsletter-addon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                      </svg>
+                    </span>
+                    <input type="email" class="form-control" id="email-newsletter" value="" placeholder="عنوان البريد الإلكتروني" aria-label="email-newsletter" aria-describedby="email-newsletter-addon" required>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn btn-primary" type="submit" style="background: #f0f0f0; background: linear-gradient(to bottom, 0 2px 4px rgba(0, 0, 0, 0.1); /* ضل للزر */, #404040); ">اشتراك</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Copyright - Bootstrap Brain Component -->
+  <div class="bg-light py-4 py-md-5 py-xl-8 border-top border-light-subtle">
+    <div class="container overflow-hidden">
+      <div class="row gy-4 gy-md-0">
+        <div class="col-xs-12 col-sm-6 col-md-4 order-0 order-md-0">
+          <div class="footer-logo-wrapper text-center text-sm-start">
+            <a href="#!">
+              <img src="logo.png" alt=" شعار HealthyEats AI" width="175" height="57">
+            </a>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-4 order-2 order-md-1">
+          <div class="footer-copyright-wrapper text-center">
+            &copy; 2024. جميع الحقوق محفوظة.
+          </div>
+          <div class="credits text-secondary text-center mt-2 fs-7">
+            من إنشاء <a href="https://bootstrapbrain.com/" class="link-secondary text-decoration-none">HealthyEats Ai</a> بـ <span class="text-primary">&#9829;</span>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 order-1 order-md-2">
+          <ul class="nav justify-content-center justify-content-sm-end">
+            <li class="nav-item">
+              <a class="nav-link link-dark" href="#!">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                  <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                </svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link-dark" href="#!">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                  <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z" />
+                </svg>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link-dark" href="#!">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+                  <path d="M5.026 15c6.04 0 9.34-5.008 9.34-9.34 0-.142-.002-.284-.008-.425A6.659 6.659 0 0 0 16 3.686a6.46 6.46 0 0 1-1.864.51 3.296 3.296 0 0 0 1.44-1.815 6.498 6.498 0 0 1-2.084.796 3.284 3.284 0 0 0-5.593 2.99A9.32 9.32 0 0 1 1.11 2.4a3.284 3.284 0 0 0 1.01 4.382A3.245 3.245 0 0 1 .633 6.1v.042a3.285 3.285 0 0 0 2.633 3.218 3.278 3.278 0 0 1-1.482.056 3.285 3.285 0 0 0 3.067 2.28A6.588 6.588 0 0 1 0 13.13a9.262 9.262 0 0 0 5.026 1.47" />
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+</body>
+</html>
+
+</body>
+</html>
+
